@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 1e228e26de2344b4f84037b3317c0cb0
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - FontT: {fileID: 12800000, guid: 62bccaf77067a4443869feea48bc5ccb, type: 3}
+  - YES: {instanceID: 0}
+  - NO: {instanceID: 0}
+  - RegisterWindow: {instanceID: 0}
+  - LoginWindow: {instanceID: 0}
+  - Wallpaper: {instanceID: 0}
+  - BAR: {instanceID: 0}
+  - LoginSKN0: {instanceID: 0}
+  - BTN_Register: {instanceID: 0}
+  - BTN_Enter: {instanceID: 0}
+  - BTN_TurnOFF: {instanceID: 0}
+  - CheckBox0: {instanceID: 0}
+  - CheckBox1: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
