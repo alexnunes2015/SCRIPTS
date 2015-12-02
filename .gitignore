@@ -1,1 +1,14 @@
-BASE.jsb
+*.jsa
+*.png
+*.wav
+*.mp3
+*.jpg
+*.blend
+*.blend1
+*.meta
+*.pptx
+*.docx
+*.zip
+*.rar
+*.ttf
+*.asset
