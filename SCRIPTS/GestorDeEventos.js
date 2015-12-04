@@ -22,17 +22,11 @@ function Update () {
 	////// NATAL ////////
 	if(System.DateTime.Now.Month==12)
 	{
-		for(var Natal : GameObject in GameObject.FindGameObjectsWithTag("Natal"))
-		{
-			Natal.active=true;
-		}
+		ArvoreDeNatal.active=true;
 	}
 	else
 	{
-		for(var Natal1 : GameObject in GameObject.FindGameObjectsWithTag("Natal"))
-		{
-			Natal1.active=false;
-		}
+		ArvoreDeNatal.active=false;
 	}
 	///////////////////////
 	
