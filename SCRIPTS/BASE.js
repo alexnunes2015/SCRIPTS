@@ -1462,15 +1462,17 @@ static function ReadFile(path:String)
 static function GetAge(BDate:String){
 	var DataA=BDate.Split("/"[0]);
 	
-	var Dia=DataA[0];
-	var Mes=DataA[1];
-	var Ano=DataA[2];
+	var Dia=System.Convert.ToInt32(DataA[0]);
+	var Mes=System.Convert.ToInt32(DataA[1]);
+	var Ano=System.Convert.ToInt32(DataA[2]);
+	
 	
 	var AnoActual=System.DateTime.Now.Year-System.Convert.ToInt32(Ano);
 	
-	if((System.Convert.ToInt32(Mes)<=System.DateTime.Now.Month-1) || (System.Convert.ToInt32(Dia)<=System.DateTime.Now.Day-1)){
-		AnoActual=AnoActual-1;		
-	}
+	if (System.DateTime.Now.Month < Mes || 
+        System.DateTime.Now.Month == Mes && System.DateTime.Now.Month < Mes) {
+        AnoActual--;
+    }
 	return AnoActual;
 }
 
@@ -1557,4 +1559,3 @@ static function Md5Sum(strToEncrypt: String)
  
 	return hashString.PadLeft(32, "0"[0]);
 }
-
