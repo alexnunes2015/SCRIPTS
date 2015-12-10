@@ -448,7 +448,7 @@ function OnGUI(){
 			}
 		}
 		
-		// Verifi if Install script is done and deleted
+		// Verify if Install script is done and deleted
 		if(Timer1_Enable){
 			Timer1_Value++;
 			if(Timer1_Value>=90){

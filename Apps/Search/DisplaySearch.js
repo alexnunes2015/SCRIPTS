@@ -13,7 +13,7 @@ var DEF_SKN:GUISkin;
 var BTN_Search:GUISkin;
 var Separator:Texture;
 var File:Texture;
-var Games:Texture;
+var Web:Texture;
 var Multimedia:Texture;
 var Music:Texture;
 var People:Texture;
@@ -43,7 +43,7 @@ var KeyMAP="0123456789QWERTYUIOPASDFGHJKLZXCVBNM";
 /////////////////////////////
 static var POSITION=0;
 //0-Files
-//1-Games
+//1-Web
 //2-Multimedia
 //3-Music
 //4-People
@@ -63,7 +63,7 @@ function Update () {
 }
 
 function OnGUI(){
-	if(BASE.ShowDisplaySearch){
+	if(BASE.ShowDisplaySearch){		
 		GUI.DrawTexture(Rect(0,PlayerPrefs.GetInt("MinY"),Screen.width,PlayerPrefs.GetInt("MaxY")),Wall);
 		GUI.DrawTexture(Rect(0,PlayerPrefs.GetInt("MinY"),530,45),BarTexture);
 		GUI.DrawTexture(Rect(355,PlayerPrefs.GetInt("MinY"),10,45),Separator);
@@ -85,15 +85,22 @@ function OnGUI(){
 			else
 			{	
 				if(Search_TXT.Length>=3){
+					if(POSITION==1 ||	POSITION==2){
+						if(POSITION==1)
+							Application.OpenURL("https://www.google.com/?gws_rd=ssl#q="+Search_TXT);
+						else
+							Application.OpenURL("https://www.youtube.com/results?search_query="+Search_TXT);
+					}else{
 						SearchStat="Searching";
-					if(POSITION==3){
-						SearchMusic();
-					}
-					if(POSITION==4){
-						SearchPerson();
-					}
-					if(POSITION==0){
-						SearchDocument();
+						if(POSITION==3){
+							SearchMusic();
+						}
+						if(POSITION==4){
+							SearchPerson();
+						}
+						if(POSITION==0){
+							SearchDocument();
+						}
 					}
 				}
 				else{
@@ -118,12 +125,12 @@ function OnGUI(){
 		GUI.skin=BTN_Type;
 		if(POSITION==1){
 			GUI.skin=iBTN_Type;
-			if(GUI.Button(Rect(400,PlayerPrefs.GetInt("MinY")+10,25,25),Games)){
+			if(GUI.Button(Rect(400,PlayerPrefs.GetInt("MinY")+10,25,25),Web)){
 				
 			}
 		}
 		else
-		if(GUI.Button(Rect(400,PlayerPrefs.GetInt("MinY")+10,25,25),Games)){
+		if(GUI.Button(Rect(400,PlayerPrefs.GetInt("MinY")+10,25,25),Web)){
 			POSITION=1;
 			SearchStat="";
 		}
