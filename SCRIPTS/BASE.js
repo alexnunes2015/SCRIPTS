@@ -75,13 +75,6 @@ static var DeleteFile_Check=false;
 static var DeleteFile_Msg="";
 ////////////////////////////////
 
-/// SYSTEM_MSG
-var SYS_MSG_BG:Texture2D;
-static var SYS_MSG_TITLE="";
-static var SYS_MSG_TEXT="";
-static var SYS_MSG_SHOW=true;
-//////////////
-
 // GERADORES DE SOM
 var PPM:AudioSource;
 //////////////////
@@ -93,11 +86,6 @@ var BarShadow:Texture;
 var BarShadow2:Texture;
 
 var WhiteWall:Texture;
-
-var notify_success:Texture;
-var notify_error:Texture;
-var notify_warning:Texture;
-var notify_info:Texture;
 
 static var SHUTDOWN_PROCESS=false;
 static var LOGOUT_PROCESS=false;
@@ -391,19 +379,12 @@ function Update () {
 	}
 	
 	ScreenSaverTimer++;
-	ScreenSaverAnimTimer++;
-	if(ScreenSaverAnimTimer==230)
-	{
-		ScreenSaverAnimTimer=0;
-		SCSLogoX=Random.Range(0,Screen.width-200);
-		SCSLogoY=Random.Range(0,Screen.height-200);
-	}
 	var DBtmp=PlayerPrefs.GetFloat("MicDB");
 	if((SCSX!=Input.mousePosition.x && SCSY!=Input.mousePosition.y) || Input.anyKeyDown || DBtmp>=0.1)
 	{
 		if(ScreenSaverTimer>=9000)
 		{
-			Cursor.visible=true;
+			LINUX_RUN("xscreensaver-command -deactivate");
 		}
 		ScreenSaverTimer=0;
 	}
@@ -1198,97 +1179,7 @@ function OnGUI()
 	}
 	
 	///////////////////////////////////////////////
-	
-	/// Mensagens de sistema SYS_MSG
-	if(SYS_MSG_SHOW)
-	{
-		if(SYS_MSG_TITLE!="" && SYS_MSG_TEXT!="")
-		{
-			GUI.skin=SYSTEM_SKIN;
-			GUI.DrawTexture(Rect(0,0,Screen.width,Screen.height),SYS_DBG);
-			GUI.DrawTexture(Rect(Screen.width/2-300,Screen.height/2-100,600,200),MiniWindow);
-			var TTTTTMP=GUI.skin;
-			var TMPCOLOR11=GUI.color;
-			GUI.skin.label.fontSize=17;
-			GUI.color=Color.black;
-			GUI.Label(Rect(Screen.width/2-300+30,Screen.height/2-100+10,600,40),"<b><size=22><i>"+SYS_MSG_TITLE+"</i></size></b>");
-			GUI.Label(Rect(Screen.width/2-300+30,Screen.height/2-100+30,590,100),SYS_MSG_TEXT);
-			GUI.color=TMPCOLOR11;
-			SYSTEM_SKIN=TTTTTMP;
-			GUI.skin=BTN_YES;
-			if(GUI.Button(Rect(Screen.width/2+210,Screen.height/2+20,50,50),PlayerPrefs.GetString("SYS_STRING_16")))
-			{
-				SYS_MSG_SHOW=false;
-				SYS_MSG_TITLE="";
-				SYS_MSG_TEXT="";
-			}
-		}
-		else
-		{
-			SYS_MSG_SHOW=false;
-			SYS_MSG_TITLE="";
-			SYS_MSG_TEXT="";			
-		}
-	}
 
-	//NotificaÃƒÆ’Ã‚Â§oes de sistema
-	if(notify_type!=0)
-	{
-		if(notify_type==1)
-		{
-			notify_timer=notify_timer-1;
-			GUI.DrawTexture(Rect(Screen.width-510,Screen.height-120,500,50),notify_success);
-			GUI.Label(Rect(Screen.width-450,Screen.height-120,400,45),notify_text);
-			if(notify_timer==0)
-			{
-				notify_type=0;
-				notify_timer=500;
-			}
-		}
-		if(notify_type==2)
-		{
-			notify_timer=notify_timer-1;
-			GUI.DrawTexture(Rect(Screen.width-510,Screen.height-120,500,50),notify_error);
-			GUI.Label(Rect(Screen.width-450,Screen.height-120,400,45),notify_text);
-			if(notify_timer==0)
-			{
-				notify_type=0;
-				notify_timer=500;
-			}
-		}
-		if(notify_type==3)
-		{
-			notify_timer=notify_timer-1;
-			GUI.DrawTexture(Rect(Screen.width-510,Screen.height-120,500,50),notify_warning);
-			GUI.Label(Rect(Screen.width-450,Screen.height-120,400,45),notify_text);
-			if(notify_timer==0)
-			{
-				notify_type=0;
-				notify_timer=500;
-			}
-		}
-		if(notify_type==4)
-		{
-			notify_timer=notify_timer-1;
-			GUI.DrawTexture(Rect(Screen.width-510,Screen.height-120,500,50),notify_info);
-			GUI.Label(Rect(Screen.width-450,Screen.height-120,400,45),notify_text);
-			if(notify_timer==0)
-			{
-				notify_type=0;
-				notify_timer=500;
-			}
-		}
-	}
-	
-	///// ScreenSaver (Presiza estar SEMPRE em Ultimo)
-	if(ScreenSaverTimer>=9000)
-	{
-		Cursor.visible=false;
-		ScreenSaverTimer=9000;
-		GUI.DrawTexture(Rect(0,0,Screen.width,Screen.height),ScreenSaverBack);
-		GUI.DrawTexture(Rect(SCSLogoX,SCSLogoY,200,200),ScreenSaverLogo);
-	}
-	//////////////////////////////////////////////
 	GUI.Label(Rect(0,0,Screen.width,Screen.height),DEBUG);
 	
 }
@@ -1414,6 +1305,29 @@ function SaveMySettingsOnline()
 	Debug.Log(wwwSaveMySettings.text);
 	
 	DataSave=true;
+}
+
+/// Mensagens de sistema SYS_MSG
+static function MsgShow(type:int,title:String,msg:String){
+	// Types:
+	// 0-Error
+	// 1-Info
+	// 2-Warning
+	if(type==0){
+		LINUX_RUN("zenity --error --text='"+msg+"' --title='"+title+"'");
+	}
+	if(type==1){
+		LINUX_RUN("zenity --info --text='"+msg+"' --title='"+title+"'");
+	}
+	if(type==3){
+		LINUX_RUN("zenity --warning --text='"+msg+"' --title='"+title+"'");
+	}
+}
+
+//NotificaÃƒÆ’Ã‚Â§oes de sistema
+static function NotifyShow(iconString:String,title:String,msg:String){
+	// IconStrings on http://standards.freedesktop.org/icon-naming-spec/icon-naming-spec-latest.html
+	LINUX_RUN("notify-send '"+title+"' '"+msg+"' --icon="+iconString);
 }
 
 function OnApplicationQuit () {

@@ -1105,17 +1105,17 @@ function SendMail()
 		
 		if(wwwSendMail.error!=null)
 		{
-			BASE.SYSTEM_NOTIFY(2,PlayerPrefs.GetString("SYS_STRING_75"));
+			BASE.NotifyShow("dialog-error","Error",PlayerPrefs.GetString("SYS_STRING_75"));
 		}
 		else
 		{
 			if(wwwSendMail.text=="OK")
 			{
-				BASE.SYSTEM_NOTIFY(1,PlayerPrefs.GetString("SYS_STRING_76"));
+				BASE.NotifyShow("mail-send",":)",PlayerPrefs.GetString("SYS_STRING_76"));
 			}
 			else
 			{
-				BASE.SYSTEM_NOTIFY(2,PlayerPrefs.GetString("SYS_STRING_75"));
+				BASE.NotifyShow("dialog-error","Error",PlayerPrefs.GetString("SYS_STRING_75"));
 			}
 		}
 		NewTo="";
@@ -1125,9 +1125,7 @@ function SendMail()
 	}
 	else
 	{
-		BASE.SYS_MSG_TITLE=PlayerPrefs.GetString("SYS_STRING_72");
-		BASE.SYS_MSG_TEXT=PlayerPrefs.GetString("SYS_STRING_73");
-		BASE.SYS_MSG_SHOW=true;
+		BASE.MsgShow(0,PlayerPrefs.GetString("SYS_STRING_72"),PlayerPrefs.GetString("SYS_STRING_73"));
 	}
 }
 

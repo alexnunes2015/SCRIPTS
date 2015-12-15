@@ -78,9 +78,7 @@ function OnGUI(){
 		if(GUI.Button(Rect(320,PlayerPrefs.GetInt("MinY")+10,25,25),Search)){
 			CalcMaxSearchByDisplay();
 			if(Search_TXT==""){
-				BASE.SYS_MSG_SHOW=true;
-				BASE.SYS_MSG_TITLE=PlayerPrefs.GetString("SYS_STRING_20");
-				BASE.SYS_MSG_TEXT=PlayerPrefs.GetString("SYS_STRING_21")+"\n"+PlayerPrefs.GetString("SYS_STRING_22")+"\n"+PlayerPrefs.GetString("SYS_STRING_23");
+				BASE.MsgShow(1,PlayerPrefs.GetString("SYS_STRING_20"),PlayerPrefs.GetString("SYS_STRING_21")+"\n"+PlayerPrefs.GetString("SYS_STRING_22")+"\n"+PlayerPrefs.GetString("SYS_STRING_23"));
 			}
 			else
 			{	
