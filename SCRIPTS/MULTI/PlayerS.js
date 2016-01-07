@@ -11,12 +11,12 @@ Jogador=GetComponent(CharacterController);
 function Start () {
 	if(GetComponent.<NetworkView>().isMine==false)
 	{
-		gameObject.GetComponent(PlayerS).enabled=false;
-		gameObject.GetComponent(RotaY).enabled=false;
-		gameObject.GetComponentInChildren(Camera).enabled=false;		
-		gameObject.GetComponentInChildren(GUILayer).enabled=false;
-		gameObject.GetComponentInChildren(AudioListener).enabled=false;	
-		gameObject.GetComponentInChildren(MouseLoock).enabled=false;	
+		GetComponent(PlayerS).enabled=false;
+		GetComponent(RotaY).enabled=false;
+		GetComponentInChildren(Camera).enabled=false;	
+		GetComponentInChildren(GUILayer).enabled=false;
+		GetComponentInChildren(AudioListener).enabled=false;	
+		GetComponentInChildren(MouseLoock).enabled=false;	
 	}
 }
 
